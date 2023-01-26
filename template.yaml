@@ -29,6 +29,27 @@ Resources:
           Properties:
             Path: /hello
             Method: get
+  NotificationServiceFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: NotificationService/
+      Handler: app.lambdaHandler
+      Runtime: python3.9
+      Architectures:
+      - x86_64
+      Events:
+        ExchangeRate:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /hello
+            Method: get
+  OrderTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      Subscription:
+        - Endpoint: "test@gmail.com"
+          Protocol: "email"
+      TopicName: "order-topic"
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
