@@ -43,11 +43,11 @@ Resources:
           Properties:
             Path: /hello
             Method: get
-  OrderTopic:
+  NotificationTopic:
     Type: AWS::SNS::Topic
     Properties:
       Subscription:
-        - Endpoint: "test@gmail.com"
+        - Endpoint: "tauroluiseduardo@gmail.com"
           Protocol: "email"
       TopicName: "order-topic"
 

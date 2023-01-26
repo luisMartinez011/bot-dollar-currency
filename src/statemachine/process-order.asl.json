@@ -1,0 +1,18 @@
+{
+    "Comment": "An example of the Amazon States Language using a choice state.",
+    "StartAt": "ExchangeRate",
+    "States": {
+        "ExchangeRate": {
+            "Comment": "Check the exchange rate between USD and MXN",
+            "Type": "Task",
+            "Resource": "${ExchangeRateArn}",
+            "Next": "NotificationService"
+        },
+        "NotificationService":{
+            "Comment": "If MXN is less than 18, i receive an email",
+            "Type": "Task",
+            "Resource": "${NotificationServiceArn}",
+            "End": true
+        }
+    }
+}
