@@ -20,7 +20,7 @@ class SnsWrapper:
         """
         self.sns_resource = sns_resource
 
-    def publish_message(topic, message, attributes):
+    def publish_message(topic, message):
         """
         Publishes a message, with attributes, to a topic. Subscriptions can be filtered
         based on message attributes so that a subscription receives messages only
@@ -32,19 +32,11 @@ class SnsWrapper:
         :return: The ID of the message.
         """
         try:
-            att_dict = {}
-            for key, value in attributes.items():
-                if isinstance(value, str):
-                    att_dict[key] = {
-                        'DataType': 'String', 'StringValue': value}
-                elif isinstance(value, bytes):
-                    att_dict[key] = {
-                        'DataType': 'Binary', 'BinaryValue': value}
             response = topic.publish(
-                Message=message, MessageAttributes=att_dict)
+                Message=message,)
             message_id = response['MessageId']
             logger.info(
-                "Published message with attributes %s to topic %s.", attributes,
+                "Published message with attributes %s to topic %s.",
                 topic.arn)
         except ClientError:
             logger.exception(
@@ -55,5 +47,12 @@ class SnsWrapper:
 
 
 def lambdaHandler(event, context):
-    notification = SnsWrapper()
-    notification()
+    # message = {"foo": "bar"}
+
+    # client = boto3.client('sns')
+    # response = client.publish(
+    #     TopicArn=snsTopicArn,
+    #     Message=json.dumps({'default': json.dumps(message)}),
+    #     MessageStructure='json'
+    # )
+    return 4

@@ -18,7 +18,7 @@ Resources:
   ExchangeRateFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
-      CodeUri: ExchangeRate/
+      CodeUri: src/ExchangeRate/
       Handler: app.lambdaHandler
       Runtime: python3.9
       Architectures:
@@ -32,7 +32,7 @@ Resources:
   NotificationServiceFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
-      CodeUri: NotificationService/
+      CodeUri: src/NotificationService/
       Handler: app.lambdaHandler
       Runtime: python3.9
       Environment:
@@ -55,11 +55,11 @@ Resources:
       TopicName: "exchange-topic"
   FlowChart:
     Type: AWS::Serverless::StateMachine
-      Properties:
-        DefinitionUri: src/statemachine/process-order.asl.json
-        DefinitionSubstitutions:
-          ExchangeRateArn: !GetAtt ExchangeRateFunction.Arn
-          NotificationServiceArn: !GetAtt NotificationServiceFunction.Arn
+    Properties:
+      DefinitionUri: src/statemachine/process-order.asl.json
+      DefinitionSubstitutions:
+        ExchangeRateArn: !GetAtt ExchangeRateFunction.Arn
+        NotificationServiceArn: !GetAtt NotificationServiceFunction.Arn
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
@@ -70,8 +70,5 @@ Outputs:
     Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/"
   ExchangeRateFunction:
     Description: "ExchangeRateLambda Function ARN"
-    Value: !GetAtt ExchangeRateFunction.Arn
-  ExchangeRateFunctionIamRole:
-    Description: "Implicit IAM Role created for HelloExchangeRateFunction"
     Value: !GetAtt ExchangeRateFunction.Arn
 
