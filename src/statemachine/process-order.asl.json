@@ -6,6 +6,7 @@
             "Comment": "Check the exchange rate between USD and MXN",
             "Type": "Task",
             "Resource": "${ExchangeRateArn}",
+            "ResultPath": "$.exchangeValue",
             "Next": "NotificationService"
         },
         "NotificationService":{
