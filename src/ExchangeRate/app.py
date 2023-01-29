@@ -9,6 +9,8 @@ my_url = f"https://v6.exchangerate-api.com/v6/{API_KEY}/pair/USD/MXN"
 
 def lambdaHandler(event, context):
 
+    http = urllib3.PoolManager()
+
     r = http.request('GET', my_url)
     response = json.loads(r.data.decode('utf-8'))
     mexicanPeso = response["conversion_rate"]
