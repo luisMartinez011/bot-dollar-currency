@@ -3,10 +3,13 @@ version = 0.1
 [default.deploy]
 [default.deploy.parameters]
 stack_name = "bot-dollar-currency"
-s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-156ahcbmwk3bv"
+
 s3_prefix = "bot-dollar-currency"
 region = "us-east-1"
 confirm_changeset = true
 capabilities = "CAPABILITY_IAM"
 disable_rollback = true
 image_repositories = []
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-156ahcbmwk3bv"
+
+
