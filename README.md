@@ -18,7 +18,7 @@ sam build
 sam deploy --guided
 ```
 
-There are two environment variable in template.yaml
+There are two environment variables in template.yaml
 
 ```yaml
       Environment:
