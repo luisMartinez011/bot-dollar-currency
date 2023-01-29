@@ -46,6 +46,7 @@ Resources:
       Environment:
         Variables:
           SNS_TOPIC_ARN: !Ref NotificationTopic
+          API_KEY: {{resolve:secretsmanager:bot-dollar-currency-secret:SecretString:API_KEY}}
       Architectures:
       - x86_64
       Events:
@@ -84,6 +85,18 @@ Resources:
               - "*"
             Resource:
               - "*"
+
+  BDC-eventbridge:
+    Type: AWS::Scheduler::Schedule
+    Properties:
+      Description: "Timer for bot dollar currency"
+      FlexibleTimeWindow: "OFF"
+      ScheduleExpression: "rate(10 minutes)"
+      Target:
+        Arn: !GetAtt FlowChart.Arn
+        RoleArn: {{resolve:secretsmanager:bot-dollar-currency-secret:SecretString:RoleArn}}
+
+
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function

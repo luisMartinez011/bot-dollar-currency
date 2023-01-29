@@ -10,6 +10,6 @@ def lambdaHandler(event, context):
 
     # r = requests.get(my_url)
     # apiResponse = r.json()
-    # mexicanValue = apiResponse["conversion_rate"]
-    # mexicanValue
-    return 18.8
+    # mexicanPeso = apiResponse["conversion_rate"]
+    # mexicanPeso
+    return 88
