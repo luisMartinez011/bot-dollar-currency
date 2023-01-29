@@ -1,4 +1,5 @@
-from botocore.vendored import requests
+import urllib3
+import json
 import os
 
 
@@ -8,8 +9,8 @@ my_url = f"https://v6.exchangerate-api.com/v6/{API_KEY}/pair/USD/MXN"
 
 def lambdaHandler(event, context):
 
-    r = requests.get(my_url)
-    apiResponse = r.json()
-    mexicanPeso = apiResponse["conversion_rate"]
+    r = http.request('GET', my_url)
+    response = json.loads(r.data.decode('utf-8'))
+    mexicanPeso = response["conversion_rate"]
 
     return mexicanPeso
